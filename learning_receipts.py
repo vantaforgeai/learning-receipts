@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-"""Learning Receipts — prove that corrections changed behavior."""
+"""Learning Receipts — record which corrections influenced which decisions."""
 import json, os, sys, sqlite3
 from datetime import datetime
 
@@ -41,13 +41,13 @@ def receipt():
         print("No behavior changes on record yet.")
         return
     print("=" * 60)
-    print("LEARNING RECEIPTS — Proven Behavior Changes")
+    print("LEARNING RECEIPTS — Declared Behavior Changes")
     print("=" * 60)
     for r in rows:
         print(f"\nDecision #{r[0]} at {r[5][:19]}")
         print(f"  Action: {r[1]}")
         print(f"  Reason: {r[2]}")
-        print(f"  Changed because {r[3]} said: \"{r[4][:80]}...\"")
+        print(f"  Declared cause — {r[3]} said: \"{r[4][:80]}...\"")
 
 def list_all():
     conn = sqlite3.connect(DB_PATH)
@@ -58,7 +58,7 @@ def list_all():
     dc = c.fetchone()[0]
     conn.close()
     print(f"Corrections: {cc}")
-    print(f"Proven behavior changes: {dc}")
+    print(f"Declared behavior changes: {dc}")
 
 if __name__ == "__main__":
     init_db()
